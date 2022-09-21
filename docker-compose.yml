@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  messenger-server:
+    container_name: messenger-server
+    platform: linux/x86_64
+    build: ./server/
+    environment:
+      NODE_ENV: development
+    ports:
+      - 8080:8080
+      - 9240:9240
+    volumes:
+      - ./server:/home/messenger/server
+      - server/home/messenger/server/node_modules
+    working_dir: /home/messenger/server
+    restart: on-failure
+    depends_on:
+      - messenger-db
+  messenger-db:
+    container_name: messenger-db
+    image: postgres
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_DB=messenger
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./db/data/postgres:/var/lib/postgresql
+    ports:
+      - 5432:5432
