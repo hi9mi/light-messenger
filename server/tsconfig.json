@@ -1,14 +1,20 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
+    "rootDir": "./src",
     "target": "ESNext",
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
     "sourceMap": true,
-    "outDir": "build",
+    "outDir": "./build",
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "declaration": true,
-    "strict": true
+    "strict": true,
+    "typeRoots": ["types"],
+    "paths": {
+      "@light-messenger/*": ["./src/*"]
+    }
   }
 }

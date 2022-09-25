@@ -3,7 +3,9 @@ services:
   messenger-server:
     container_name: messenger-server
     platform: linux/x86_64
-    build: ./server/
+    build: 
+      context: ./server/
+      target: development
     environment:
       NODE_ENV: development
     ports:
@@ -11,7 +13,7 @@ services:
       - 9240:9240
     volumes:
       - ./server:/home/messenger/server
-      - server/home/messenger/server/node_modules
+      - /home/messenger/server/node_modules
     working_dir: /home/messenger/server
     restart: on-failure
     depends_on:

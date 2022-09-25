@@ -1,51 +1,18 @@
-import fastify from 'fastify';
-import { PrismaClient } from '@prisma/client';
+import { initialize, server } from './app';
 
-const server = fastify();
-const prisma = new PrismaClient();
+const bootstrap = async () => {
+  await initialize();
 
-interface UserType {
-  username: string;
-  password: string;
-}
+  server.listen(
+    { port: Number(server.config.PORT), host: server.config.HOST },
+    (err, address) => {
+      if (err) {
+        server.log.error(err);
+        process.exit(1);
+      }
+      server.log.info(`Server listening at: ${address}`);
+    }
+  );
+};
 
-interface ResponseType {
-  message: string;
-}
-
-async function addUser({ username, password }) {
-  await prisma.user.create({
-    data: {
-      username,
-      password,
-    },
-  });
-}
-
-server.post<{ Body: UserType; Reply: ResponseType }>(
-  '/add-user',
-  function (request, reply) {
-    const { username, password } = request.body;
-    // console.log(request.body);
-    addUser({ username, password })
-      .then(() => {
-        reply.code(200).send({ message: 'User created!' });
-      })
-      .catch((e) => {
-        return reply
-          .code(500)
-          .send({ message: 'There was a problem adding the user.' });
-      })
-      .finally(async () => {
-        await prisma.$disconnect();
-      });
-  }
-);
-
-server.listen({ port: 8080, host: '0.0.0.0' }, (err, address) => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
-  console.log(`Server listening at ${address}`);
-});
+bootstrap();
