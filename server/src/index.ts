@@ -1,7 +1,23 @@
-import { initialize, server } from './app';
+import { initializeServer } from './server';
+
+const envToLogger = {
+  development: {
+    transport: {
+      target: 'pino-pretty',
+      options: {
+        translateTime: 'SYS:standard',
+        ignore: 'pid,hostname',
+      },
+    },
+  },
+  production: true,
+  test: false,
+};
 
 const bootstrap = async () => {
-  await initialize();
+  const server = await initializeServer({
+    logger: envToLogger[process.env.NODE_ENV ?? ''] ?? true,
+  });
 
   server.listen(
     { port: Number(server.config.PORT), host: server.config.HOST },
@@ -11,7 +27,7 @@ const bootstrap = async () => {
         process.exit(1);
       }
       server.log.info(`Server listening at: ${address}`);
-    }
+    },
   );
 };
 

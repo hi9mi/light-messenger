@@ -11,20 +11,20 @@ datasource db {
 }
 
 model User {
-  id           Int            @id @default(autoincrement())
-  email        String         @unique
-  phoneNumber  String         @map("phone_number")
+  id           Int           @id @unique @default(autoincrement())
+  email        String        @unique
+  phoneNumber  String        @map("phone_number")
   username     String
   password     String
-  RefreshToken RefreshToken[]
+  refreshToken RefreshToken?
 
   @@map("users")
 }
 
 model RefreshToken {
-  user     User   @relation(fields: [userId], references: [id])
-  userId   Int    @unique @map("user_id")
-  hashedRt String @map("hashed_refresh_token")
+  user     User    @relation(fields: [userId], references: [id])
+  userId   Int     @unique @map("user_id")
+  hashedRt String? @map("hashed_refresh_token")
 
   @@map("refresh_tokens")
 }

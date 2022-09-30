@@ -12,9 +12,7 @@
     "noImplicitAny": false,
     "declaration": true,
     "strict": true,
-    "typeRoots": ["types"],
-    "paths": {
-      "@light-messenger/*": ["./src/*"]
-    }
-  }
+    "typeRoots": ["types"]
+  },
+  "include": ["./src", "./types"]
 }

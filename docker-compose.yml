@@ -3,7 +3,7 @@ services:
   messenger-server:
     container_name: messenger-server
     platform: linux/x86_64
-    build: 
+    build:
       context: ./server/
       target: development
     environment:
@@ -21,13 +21,12 @@ services:
   messenger-db:
     container_name: messenger-db
     image: postgres
+    env_file:
+      - ./server/.env
     environment:
-      - POSTGRES_USER=user
-      - POSTGRES_DB=messenger
-      - POSTGRES_PASSWORD=12345
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - PGDATA=/var/lib/postgresql/data/pgdata
-    volumes:
-      - ./db/data/postgres:/var/lib/postgresql
     ports:
       - 5432:5432
