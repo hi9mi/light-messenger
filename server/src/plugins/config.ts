@@ -49,7 +49,7 @@ export const config = fp(
     };
 
     server.register(fastifyEnv, options).ready((err) => {
-      if (err) console.error(err);
+      if (err) server.log.error(err);
     });
   },
   {

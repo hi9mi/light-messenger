@@ -22,7 +22,7 @@ export const localAuth = async (server: FastifyInstance) => {
     },
     async (request, reply) => {
       const { username, password, email, phoneNumber } = request.body;
-      console.log(request.userId);
+
       const existingUser = await server.prisma.user.findUnique({
         where: {
           email,
@@ -150,8 +150,8 @@ export const localAuth = async (server: FastifyInstance) => {
         reply.forbidden('Refresh token is invalid');
       }
 
-      const token = await reply.authJwtSign({ id: request.id });
-      const refreshToken = await reply.refreshJwtSign({ id: request.id });
+      const token = await reply.authJwtSign({ id: request.userId });
+      const refreshToken = await reply.refreshJwtSign({ id: request.userId });
 
       const newHashedRt = await argon.hash(refreshToken);
 
@@ -171,7 +171,7 @@ export const localAuth = async (server: FastifyInstance) => {
           httpOnly: true,
         })
         .status(200)
-        .send(token);
+        .send({ token });
     },
   );
 
