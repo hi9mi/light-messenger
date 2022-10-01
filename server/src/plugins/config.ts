@@ -12,6 +12,7 @@ export const config = fp(
         'ACCESS_TOKEN_SECRET',
         'REFRESH_TOKEN_EXPIRES_IN',
         'ACCESS_TOKEN_EXPIRES_IN',
+        'COOKIE_NAME',
       ],
       properties: {
         PORT: {
@@ -37,6 +38,10 @@ export const config = fp(
         HOST: {
           type: 'string',
           default: 'localhost',
+        },
+        COOKIE_NAME: {
+          type: 'string',
+          default: 'cookie_name',
         },
       },
     };

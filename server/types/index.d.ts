@@ -1,17 +1,8 @@
-import type {
-  SignPayloadType,
-  FastifyJwtSignOptions,
-  SignerCallback,
-  SignOptions,
-} from 'fastify';
-import type {
-  VerifyPayloadType,
-  VerifierCallback,
-  FastifyJwtVerifyOptions,
-  FastifyJwtDecodeOptions,
-} from '@fastify/jwt';
-import type { Logger } from 'pino';
-import type { PrismaClient } from '@prisma/client';
+import 'fastify';
+import 'fast-jwt';
+import '@fastify/jwt';
+import 'pino';
+import '@prisma/client';
 
 declare module 'fastify' {
   interface FastifyInstance {
@@ -23,6 +14,7 @@ declare module 'fastify' {
       REFRESH_TOKEN_SECRET: string;
       REFRESH_TOKEN_EXPIRES_IN: string;
       ACCESS_TOKEN_EXPIRES_IN: string;
+      COOKIE_NAME: string;
     };
     prisma: PrismaClient;
     authenticate: (request: FastifyRequest) => void;
@@ -32,8 +24,6 @@ declare module 'fastify' {
   type FastifyBaseLogger = Logger;
 
   interface FastifyRequest {
-    userId: number;
-
     authJwtVerify<Decoded extends VerifyPayloadType>(
       options?: FastifyJwtVerifyOptions,
     ): Promise<Decoded>;
@@ -65,9 +55,9 @@ declare module 'fastify' {
     refreshJwtVerify<Decoded extends VerifyPayloadType>(
       options?: FastifyJwtVerifyOptions,
     ): Promise<Decoded>;
-    // refreshJwtVerify<Decoded extends VerifyPayloadType>(
-    //   callback: VerifierCallback,
-    // ): void;
+    refreshJwtVerify<Decoded extends VerifyPayloadType>(
+      callback: VerifierCallback,
+    ): void;
     refreshJwtVerify<Decoded extends VerifyPayloadType>(
       options: FastifyJwtVerifyOptions,
       callback: VerifierCallback,
@@ -131,5 +121,16 @@ declare module 'fastify' {
       options: Partial<SignOptions>,
       callback: SignerCallback,
     ): void;
+  }
+}
+
+declare module '@fastify/jwt' {
+  interface FastifyJWT {
+    payload: { id: number };
+    user: {
+      id: number;
+      iat: number;
+      exp: number;
+    };
   }
 }

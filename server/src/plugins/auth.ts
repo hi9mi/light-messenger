@@ -1,6 +1,6 @@
 import jwt from '@fastify/jwt';
 import fp from 'fastify-plugin';
-import type { FastifyInstance, FastifyRequest } from 'fastify';
+import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 
 const authMessages = {
   badRequestErrorMessage: 'Format is Authorization: Bearer [token]',
@@ -17,26 +17,18 @@ export const authJwt = fp(async (server: FastifyInstance) => {
     sign: {
       expiresIn: server.config.ACCESS_TOKEN_EXPIRES_IN,
     },
-    verify: {
-      extractToken(request) {
-        const token = request.headers.authorization?.split(' ')[1];
-        return token;
-      },
-    },
     messages: authMessages,
     namespace: 'auth',
   });
 
-  server.decorate('authenticate', async (request: FastifyRequest) => {
-    try {
-      const verifiedPayload = await request.authJwtVerify<{
-        id: number;
-        iat: number;
-        exp: number;
-      }>();
-      request.userId = verifiedPayload.id;
-    } catch (err) {
-      throw server.httpErrors.unauthorized('Authorization token is required');
-    }
-  });
+  server.decorate(
+    'authenticate',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      try {
+        await request.authJwtVerify();
+      } catch (error) {
+        reply.send(error);
+      }
+    },
+  );
 });

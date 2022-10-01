@@ -57,7 +57,7 @@ export const localAuth = async (server: FastifyInstance) => {
       });
 
       reply
-        .setCookie('refreshToken', refreshToken, {
+        .setCookie(server.config.COOKIE_NAME, refreshToken, {
           domain: 'localhost',
           path: '/auth',
           httpOnly: true,
@@ -112,7 +112,7 @@ export const localAuth = async (server: FastifyInstance) => {
       });
 
       reply
-        .setCookie('refreshToken', refreshToken, {
+        .setCookie(server.config.COOKIE_NAME, refreshToken, {
           domain: 'localhost',
           path: '/auth',
           httpOnly: true,
@@ -132,8 +132,9 @@ export const localAuth = async (server: FastifyInstance) => {
       onRequest: [server.refresh],
     },
     async (request, reply) => {
+      const userId = request.user.id;
       const hashedRt = await server.prisma.refreshToken.findUnique({
-        where: { userId: request.userId },
+        where: { userId },
       });
       const refreshTokenFromCookie = request.cookies.refreshToken;
 
@@ -150,14 +151,14 @@ export const localAuth = async (server: FastifyInstance) => {
         reply.forbidden('Refresh token is invalid');
       }
 
-      const token = await reply.authJwtSign({ id: request.userId });
-      const refreshToken = await reply.refreshJwtSign({ id: request.userId });
+      const token = await reply.authJwtSign({ id: userId });
+      const refreshToken = await reply.refreshJwtSign({ id: userId });
 
       const newHashedRt = await argon.hash(refreshToken);
 
       await server.prisma.refreshToken.update({
         where: {
-          userId: request.userId,
+          userId,
         },
         data: {
           hashedRt: newHashedRt,
@@ -165,7 +166,7 @@ export const localAuth = async (server: FastifyInstance) => {
       });
 
       reply
-        .setCookie('refreshToken', refreshToken, {
+        .setCookie(server.config.COOKIE_NAME, refreshToken, {
           domain: 'localhost',
           path: '/auth',
           httpOnly: true,
@@ -182,7 +183,7 @@ export const localAuth = async (server: FastifyInstance) => {
       onRequest: [server.authenticate],
     },
     async (request, reply) => {
-      const userId = request.userId;
+      const userId = request.user.id;
 
       await server.prisma.refreshToken.updateMany({
         where: {
