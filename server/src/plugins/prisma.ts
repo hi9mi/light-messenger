@@ -22,10 +22,11 @@ export const prisma: FastifyPluginAsync = fp(async (server) => {
     }
   }
 
-  server.decorate('prisma', prisma);
-
-  server.addHook('onClose', async (server) => {
-    server.log.info('Disconnecting prisma from database');
-    await server.prisma.$disconnect();
-  });
+  server
+    .decorate('prisma', prisma)
+    .decorateRequest('prisma', { getter: () => server.prisma })
+    .addHook('onClose', async (server) => {
+      server.log.info('Disconnecting prisma from database');
+      await server.prisma.$disconnect();
+    });
 });

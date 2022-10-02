@@ -4,18 +4,20 @@ import '@fastify/jwt';
 import 'pino';
 import '@prisma/client';
 
+type MessengerConfig = {
+  PORT: string;
+  HOST: string;
+  CLIENT_BASE_URL: string;
+  ACCESS_TOKEN_SECRET: string;
+  REFRESH_TOKEN_SECRET: string;
+  REFRESH_TOKEN_EXPIRES_IN: string;
+  ACCESS_TOKEN_EXPIRES_IN: string;
+  COOKIE_NAME: string;
+};
+
 declare module 'fastify' {
   interface FastifyInstance {
-    config: {
-      PORT: string;
-      HOST: string;
-      CLIENT_BASE_URL: string;
-      ACCESS_TOKEN_SECRET: string;
-      REFRESH_TOKEN_SECRET: string;
-      REFRESH_TOKEN_EXPIRES_IN: string;
-      ACCESS_TOKEN_EXPIRES_IN: string;
-      COOKIE_NAME: string;
-    };
+    config: MessengerConfig;
     prisma: PrismaClient;
     authenticate: (request: FastifyRequest) => void;
     refresh: (request: FastifyRequest) => void;
@@ -24,6 +26,9 @@ declare module 'fastify' {
   type FastifyBaseLogger = Logger;
 
   interface FastifyRequest {
+    prisma: PrismaClient;
+    config: MessengerConfig;
+
     authJwtVerify<Decoded extends VerifyPayloadType>(
       options?: FastifyJwtVerifyOptions,
     ): Promise<Decoded>;

@@ -56,6 +56,8 @@ export const config = fp(
     server.register(fastifyEnv, options).ready((err) => {
       if (err) server.log.error(err);
     });
+
+    server.decorateRequest('config', { getter: () => server.config });
   },
   {
     name: 'config',
