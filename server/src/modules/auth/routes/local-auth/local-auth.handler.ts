@@ -16,7 +16,7 @@ export const signUpHandler = async (
   });
 
   if (existingUser) {
-    reply.forbidden('User already exists');
+    return reply.forbidden('User already exists');
   }
 
   const hashedPassword = await argon.hash(password);
@@ -68,13 +68,13 @@ export const signInHandler = async (
   });
 
   if (!user) {
-    reply.notFound('Incorrect credentials');
+    return reply.badRequest('Incorrect credentials');
   }
 
   const isValidPassword = await argon.verify(user!.password, password);
 
   if (!isValidPassword) {
-    reply.badRequest('Incorrect credentials');
+    return reply.badRequest('Incorrect credentials');
   }
 
   const token = await reply.authJwtSign({ id: user!.id });
@@ -115,7 +115,7 @@ export const refreshTokenHandler = async (
   const refreshTokenFromCookie = request.cookies.refreshToken;
 
   if (!hashedRt || !refreshTokenFromCookie) {
-    reply.forbidden('Refresh token is required');
+    return reply.forbidden('Refresh token is required');
   }
 
   const isValidRt = await argon.verify(
@@ -124,7 +124,7 @@ export const refreshTokenHandler = async (
   );
 
   if (!isValidRt) {
-    reply.forbidden('Refresh token is invalid');
+    return reply.forbidden('Refresh token is invalid');
   }
 
   const token = await reply.authJwtSign({ id: userId });

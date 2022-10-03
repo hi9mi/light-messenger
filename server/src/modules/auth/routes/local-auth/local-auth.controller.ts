@@ -7,10 +7,10 @@ import {
   signUpHandler,
 } from './local-auth.handler';
 import {
-  signInBodySchema,
-  signUpBodySchema,
-  signInReplySchema,
-  signUpReplySchema,
+  logoutSchema,
+  refreshTokenSchema,
+  signInSchema,
+  signUpSchema,
 } from './local-auth.schema';
 import type { SignUpBody, SignInBody } from './local-auth.schema';
 
@@ -18,10 +18,7 @@ export const localAuth = async (server: FastifyInstance) => {
   server.post<{ Body: SignUpBody }>(
     '/sign-up',
     {
-      schema: {
-        body: signUpBodySchema,
-        response: signUpReplySchema,
-      },
+      schema: signUpSchema,
     },
     signUpHandler,
   );
@@ -29,27 +26,24 @@ export const localAuth = async (server: FastifyInstance) => {
   server.post<{ Body: SignInBody }>(
     '/sign-in',
     {
-      schema: {
-        body: signInBodySchema,
-        response: signInReplySchema,
-      },
+      schema: signInSchema,
     },
     signInHandler,
   );
 
-  server.post<{ Body: SignInBody }>(
+  server.post(
     '/refresh',
     {
-      // todo: add schemas
+      schema: refreshTokenSchema,
       onRequest: [server.refresh],
     },
     refreshTokenHandler,
   );
 
-  server.post<{ Body: SignInBody }>(
+  server.post(
     '/logout',
     {
-      // todo: add schemas
+      schema: logoutSchema,
       onRequest: [server.authenticate],
     },
     logoutHandler,

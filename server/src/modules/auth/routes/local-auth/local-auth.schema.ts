@@ -1,6 +1,19 @@
 import { FromSchema } from 'json-schema-to-ts';
 
-export const signUpBodySchema = {
+const userResponseWithToken = {
+  user: {
+    type: 'object',
+    properties: {
+      id: { type: 'number' },
+      username: { type: 'string' },
+      email: { type: 'string' },
+      phoneNumber: { type: 'string' },
+    },
+  },
+  token: { type: 'string' },
+};
+
+const signUpBodySchema = {
   type: 'object',
   properties: {
     username: { type: 'string' },
@@ -12,6 +25,24 @@ export const signUpBodySchema = {
   additionalProperties: false,
 } as const;
 
+export const signUpSchema = {
+  body: signUpBodySchema,
+  response: {
+    201: {
+      type: 'object',
+      properties: userResponseWithToken,
+    },
+    403: {
+      type: 'object',
+      properties: {
+        statusCode: { type: 'number' },
+        error: { type: 'string' },
+        message: { type: 'string' },
+      },
+    },
+  },
+};
+
 export const signInBodySchema = {
   type: 'object',
   properties: {
@@ -22,38 +53,68 @@ export const signInBodySchema = {
   additionalProperties: false,
 } as const;
 
-export const signUpReplySchema = {
-  201: {
-    type: 'object',
-    properties: {
-      user: {
-        type: 'object',
-        properties: {
-          id: { type: 'number' },
-          username: { type: 'string' },
-          email: { type: 'string' },
-          phoneNumber: { type: 'string' },
-        },
+export const signInSchema = {
+  body: signInBodySchema,
+  response: {
+    200: {
+      type: 'object',
+      properties: userResponseWithToken,
+    },
+    400: {
+      type: 'object',
+      properties: {
+        statusCode: { type: 'number' },
+        error: { type: 'string' },
+        message: { type: 'string' },
       },
-      token: { type: 'string' },
     },
   },
 };
 
-export const signInReplySchema = {
-  200: {
-    type: 'object',
-    properties: {
-      user: {
-        type: 'object',
-        properties: {
-          id: { type: 'number' },
-          username: { type: 'string' },
-          email: { type: 'string' },
-          phoneNumber: { type: 'string' },
-        },
+export const refreshTokenSchema = {
+  response: {
+    200: {
+      type: 'object',
+      properties: {
+        token: { type: 'string' },
       },
-      token: { type: 'string' },
+    },
+    401: {
+      type: 'object',
+      properties: {
+        statusCode: { type: 'number' },
+        code: { type: 'string' },
+        error: { type: 'string' },
+        message: { type: 'string' },
+      },
+    },
+    403: {
+      type: 'object',
+      properties: {
+        statusCode: { type: 'number' },
+        error: { type: 'string' },
+        message: { type: 'string' },
+      },
+    },
+  },
+};
+
+export const logoutSchema = {
+  response: {
+    200: {
+      type: 'object',
+      properties: {
+        message: { type: 'string' },
+      },
+    },
+    401: {
+      type: 'object',
+      properties: {
+        statusCode: { type: 'number' },
+        code: { type: 'string' },
+        error: { type: 'string' },
+        message: { type: 'string' },
+      },
     },
   },
 };
