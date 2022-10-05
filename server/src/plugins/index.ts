@@ -4,3 +4,4 @@ export * from './security';
 export * from './auth';
 export * from './refresh';
 export * from './sensible';
+export * from './swagger';

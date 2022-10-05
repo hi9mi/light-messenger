@@ -13,6 +13,7 @@ import {
   prisma,
   security,
   sensiblePlugin,
+  swaggerPlugin,
 } from './plugins';
 import { ping } from './ping';
 import { userRoutes } from './modules/user';
@@ -29,6 +30,7 @@ const initializeServer = async (
   await server.register(refreshJwt);
   await server.register(sensiblePlugin);
   await server.register(prisma);
+  await server.register(swaggerPlugin);
   await server.register(ping);
   await server.register(authRoutes, { prefix: '/auth' });
   await server.register(userRoutes, { prefix: '/user' });
