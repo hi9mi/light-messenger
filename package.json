@@ -1,0 +1,17 @@
+{
+  "name": "light-messenger",
+  "version": "1.0.0",
+  "repository": "https://github.com/hi9mi/light-messenger.git",
+  "author": "Roman <4elove4ek40@gmail.com>",
+  "license": "MIT",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev:client": "yarn workspace client dev",
+    "dev:server": "docker-compose -f ./server/docker-compose.dev.yml up -d && yarn workspace server dev",
+    "dev:stop-docker": "docker-compose -f server/docker-compose.dev.yml stop"
+  },
+  "packageManager": "yarn@3.2.4"
+}
