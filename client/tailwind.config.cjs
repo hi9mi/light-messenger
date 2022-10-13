@@ -54,10 +54,14 @@ module.exports = {
       white: {
         DEFAULT: '#ffffff',
       },
+      yellow: {
+        DEFAULT: '#f9f871',
+      },
       transparent: 'transparent',
     },
     fontSize: {
-      13: [rem(13)[13], rem(13)[13]],
+      11: [rem(11)[11], rem(13)[13]],
+      13: [rem(13)[13], rem(14)[14]],
       14: [rem(14)[14], rem(16)[16]],
       16: [rem(16)[16], rem(19)[19]],
       18: [rem(18)[18], rem(24)[24]],
@@ -98,14 +102,18 @@ module.exports = {
     spacing: {
       ...px(1),
       ...rem(5),
+      ...rem(8),
       ...rem(10),
       ...rem(13),
       ...rem(15),
       ...rem(16),
       ...rem(18),
       ...rem(20),
+      ...rem(24),
       ...rem(30),
+      ...rem(32),
       ...rem(40),
+      ...rem(48),
       ...rem(50),
       ...rem(60),
       ...rem(100),
@@ -114,6 +122,8 @@ module.exports = {
       ...rem(300),
       ...rem(400),
       ...rem(500),
+      ...rem(615),
+      '115-em': em(115),
     },
     animation: {
       none: 'none',
@@ -200,9 +210,11 @@ module.exports = {
     borderOpacity: ({ theme }) => theme('opacity'),
     borderRadius: {
       none: '0px',
-      8: '0.5rem',
-      16: '1rem',
-      20: '1.4rem',
+      ...rem(1),
+      ...rem(3),
+      ...rem(8),
+      ...rem(16),
+      ...rem(20),
     },
     borderSpacing: ({ theme }) => ({
       ...theme('spacing'),
@@ -678,10 +690,7 @@ module.exports = {
       4: '4px',
       8: '8px',
     },
-    ringColor: ({ theme }) => ({
-      DEFAULT: theme(`colors.blue.500`, '#3b82f6'),
-      ...theme('colors'),
-    }),
+    ringColor: ({ theme }) => theme('colors'),
     ringOffsetColor: ({ theme }) => theme('colors'),
     ringOffsetWidth: {
       0: '0px',

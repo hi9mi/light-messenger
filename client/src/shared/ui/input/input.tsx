@@ -2,64 +2,115 @@ import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { forwardRef } from 'react';
 
-type InputSizes = 'sm';
-type InputVariants = 'primary';
+type InputSizes = 'lg' | 'md' | 'sm' | 'xs';
+type InputVariants = 'outline' | 'filled' | 'flushed';
 
-type InputProps = {
+type InputBaseProps = {
   size?: InputSizes;
-  fullWidth?: boolean;
   variant?: InputVariants;
-  icon?: React.ReactNode;
+  fullWidth?: boolean;
   label?: string;
-  error?: string;
-} & Omit<React.ComponentPropsWithRef<'input'>, 'size'>;
+  rightAdornment?: React.ReactNode;
+  isInvalid?: boolean;
+  isDisabled?: boolean;
+  isRequired?: boolean;
+  isReadOnly?: boolean;
+  isOptional?: boolean;
+  htmlSize?: number;
+} & Omit<
+  React.ComponentPropsWithRef<'input'>,
+  | 'size'
+  | 'disabled'
+  | 'ariaDisabled'
+  | 'required'
+  | 'readOnly'
+  | 'ariaRequired'
+>;
+
+type RequiredInputProps = InputBaseProps & {
+  isRequired?: boolean;
+  isOptional?: never;
+};
+
+type OptionalInputProps = InputBaseProps & {
+  isRequired?: never;
+  isOptional?: boolean;
+};
+
+type InputProps = RequiredInputProps | OptionalInputProps;
 
 const sizes = {
-  sm: 'py-13',
+  xs: 'h-24 text-11',
+  sm: 'h-32 text-13',
+  md: 'h-40 text-16',
+  lg: 'h-48 text-16',
 } as const;
 
 const variants = {
-  primary: 'bg-white border-gray-100 focus:border-black-500',
+  outline:
+    'rounded-16 border-2 border-gray-100 bg-white pl-16 focus:border-black-500',
+  filled:
+    'rounded-16 border-2 border-gray-100 bg-black-100 pl-16 focus:border-black-500 focus:bg-white',
+  flushed:
+    'rounded-3 border-b-2 border-gray-100 bg-white pl-5 focus:border-black-500',
 } as const;
 
-const errorClasses =
-  'text-red-500 border-red-500 placeholder:text-red-500 focus:border-red-500';
+const disabledClasses = 'cursor-not-allowed';
+const baseOutlineClasses =
+  'outline-none focus:outline-1 focus:outline-offset-1 focus:outline-gray-100';
+
+const REQUIRED_INPUT_LABEL_TEXT = ' (required)';
+const OPTIONAL_INPUT_LABEL_TEXT = ' (optional)';
+const DEFAULT_INPUT_WIDTH = 'w-300';
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
-      size = 'sm',
-      variant = 'primary',
+      size = 'md',
+      variant = 'outline',
       fullWidth = false,
-      icon,
-      className,
       label,
+      rightAdornment,
+      isInvalid,
+      isDisabled,
+      isReadOnly,
+      isRequired,
+      isOptional,
+      htmlSize,
       id,
-      error,
+      className,
       ...inputProps
     },
     ref
   ) => {
     return (
       <div
-        className={clsx(
-          'flex w-full flex-col gap-y-5',
-          {
-            ['w-300']: !fullWidth,
-          },
-          className
+        className={twMerge(
+          clsx(
+            'flex w-full flex-col gap-y-5 text-black-500',
+            {
+              [DEFAULT_INPUT_WIDTH]: !fullWidth,
+              [`text-red-500`]: isInvalid,
+            },
+            className
+          )
         )}
       >
         {Boolean(label) && (
           <label
             htmlFor={id}
+            data-invalid={isInvalid}
+            data-disabled={isDisabled}
+            data-required={isRequired}
             className={twMerge(
-              clsx('text-14 font-300 text-black-500', {
-                ['text-red-500']: Boolean(error),
+              clsx('text-14 font-300', {
+                [disabledClasses]: isDisabled,
               })
             )}
           >
             {label}
+            {isRequired && REQUIRED_INPUT_LABEL_TEXT}
+            {isOptional && OPTIONAL_INPUT_LABEL_TEXT}
           </label>
         )}
         <div className="relative flex w-full flex-col gap-10">
@@ -67,29 +118,35 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {...inputProps}
             ref={ref}
             id={id}
+            size={htmlSize}
+            disabled={isDisabled}
+            readOnly={isReadOnly}
+            aria-disabled={isDisabled}
+            aria-invalid={isInvalid}
+            aria-required={isRequired}
             className={twMerge(
               clsx(
-                'placeholder:text-gray-10 w-full rounded-16 border-2 pl-13 pr-40 text-16 outline-none transition-colors',
+                'w-full pr-40 transition-colors placeholder:text-gray-100 focus:border-black-500',
+                baseOutlineClasses,
                 sizes[size],
                 variants[variant],
                 {
-                  [errorClasses]: Boolean(error),
-                  ['placeholder:text-red-500']: Boolean(error),
+                  [disabledClasses]: isDisabled,
+                  ['border-red-500 placeholder:text-red-500']: isInvalid,
                 }
               )
             )}
           />
-          {Boolean(icon) && (
-            <span className="absolute right-5 top-1/2 -translate-x-5 -translate-y-1/2">
-              {icon}
+          {Boolean(rightAdornment) && (
+            <span
+              data-invalid={isInvalid}
+              data-disabled={isDisabled}
+              className="absolute right-8 top-1/2 -translate-x-8 -translate-y-1/2"
+            >
+              {rightAdornment}
             </span>
           )}
         </div>
-        {Boolean(error) && (
-          <span className="text-14 font-300 text-red-500 empty:hidden">
-            {error}
-          </span>
-        )}
       </div>
     );
   }
