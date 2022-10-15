@@ -4,10 +4,12 @@ import { forwardRef } from 'react';
 
 type InputSizes = 'lg' | 'md' | 'sm' | 'xs';
 type InputVariants = 'outline' | 'filled' | 'flushed';
+type InputColors = 'blue' | 'green' | 'gray';
 
 type InputBaseProps = {
   size?: InputSizes;
   variant?: InputVariants;
+  color?: InputColors;
   fullWidth?: boolean;
   label?: string;
   rightAdornment?: React.ReactNode;
@@ -47,16 +49,21 @@ const sizes = {
 } as const;
 
 const variants = {
-  outline:
-    'rounded-16 border-2 border-gray-100 bg-white pl-16 focus:border-black-500',
-  filled:
-    'rounded-16 border-2 border-gray-100 bg-black-100 pl-16 focus:border-black-500 focus:bg-white',
+  outline: 'rounded-16 border-2 bg-transparent pl-16 focus:bg-transparent',
+  filled: 'rounded-16 border-2 pl-16',
   flushed:
-    'rounded-3 border-b-2 border-gray-100 bg-white pl-5 focus:border-black-500',
+    'rounded-2 border-b-2 bg-transparent pl-5 focus:bg-transparent focus:outline-0',
+} as const;
+
+const colors = {
+  gray: 'border-gray bg-black-100 placeholder:text-gray-100 focus:border-black focus:bg-white',
+  blue: 'border-blue-200 bg-blue placeholder:text-blue-200 focus:border-blue-300 focus:bg-white',
+  green:
+    'border-green-200 bg-green placeholder:text-green-200 focus:border-green-300 focus:bg-white',
 } as const;
 
 const disabledClasses = 'cursor-not-allowed';
-const baseOutlineClasses =
+const commonClasses =
   'outline-none focus:outline-1 focus:outline-offset-1 focus:outline-gray-100';
 
 const REQUIRED_INPUT_LABEL_TEXT = ' (required)';
@@ -68,6 +75,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     {
       size = 'md',
       variant = 'outline',
+      color = 'gray',
       fullWidth = false,
       label,
       rightAdornment,
@@ -126,9 +134,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             aria-required={isRequired}
             className={twMerge(
               clsx(
-                'w-full pr-40 transition-colors placeholder:text-gray-100 focus:border-black-500',
-                baseOutlineClasses,
+                'w-full pr-40 transition-colors',
+                commonClasses,
                 sizes[size],
+                colors[color],
                 variants[variant],
                 {
                   [disabledClasses]: isDisabled,
