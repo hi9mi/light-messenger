@@ -6,7 +6,7 @@ type ButtonVariants = 'ghost' | 'outline' | 'solid' | 'link';
 type ButtonSizes = 'lg' | 'md' | 'sm' | 'xs';
 type ButtonColors = 'blue' | 'green' | 'gray' | 'red';
 
-type ButtonProps = React.ComponentPropsWithRef<'button'> & {
+type ButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'color'> & {
   children: React.ReactNode;
   variant?: ButtonVariants;
   size?: ButtonSizes;
@@ -33,8 +33,8 @@ const disabledVariants = {
   common: 'disabled:pointer-events-none',
   solid: 'disabled:bg-gray-100',
   outline: 'disabled:border-gray-100 disabled:text-gray-100',
-  ghost: 'disabled:border-gray-100 disabled:text-gray-100',
-  link: '',
+  ghost: 'disabled:text-gray-100',
+  link: 'disabled:no-underline disabled:text-gray-100',
 } as const;
 
 const textColor = {
@@ -63,7 +63,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     {
       variant = 'solid',
       size = 'sm',
-      color = 'red',
+      color = 'gray',
       uppercase = false,
       children,
       icon,
@@ -84,8 +84,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             backgroundColors[color],
             border[variant],
             variants[variant],
-            disabledVariants[variant],
             disabledVariants.common,
+            disabledVariants[variant],
             { ['uppercase']: uppercase },
             className
           )
