@@ -816,6 +816,19 @@ module.exports = {
       left: 'left',
       'top-left': 'top left',
     },
+    lineClamp: {
+      none: 'none',
+      1: '1',
+      2: '2',
+      3: '3',
+      4: '4',
+      5: '5',
+      6: '6',
+      7: '7',
+      8: '8',
+      9: '9',
+      10: '10',
+    },
     transitionDelay: {
       75: '75ms',
       100: '100ms',
@@ -934,5 +947,5 @@ module.exports = {
     'active',
     'disabled',
   ],
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp')],
 };

@@ -4,6 +4,7 @@ import { twMerge } from 'tailwind-merge';
 
 type HeadingAsVariants = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 type HeadingSizes = 'xl' | 'lg' | 'md' | 'sm' | 'xs';
+type HeadingLineClamps = 'none' | '1' | '2' | '3' | '4' | '5' | '6';
 
 type HeadingRef<E extends HeadingAsVariants> =
   React.ComponentPropsWithRef<E>['ref'];
@@ -12,6 +13,7 @@ type HeadingBaseProps<E extends HeadingAsVariants = 'h1'> = {
   children: string;
   as?: E;
   size?: HeadingSizes;
+  headingLineClamp?: HeadingLineClamps;
 };
 
 type HeadingProps<E extends HeadingAsVariants> = HeadingBaseProps<E> &
@@ -27,9 +29,26 @@ const headingFontSizes = {
   xs: 'text-12',
 };
 
+const headingLineClamps = {
+  none: 'line-clamp-none',
+  1: 'line-clamp-1',
+  2: 'line-clamp-2',
+  3: 'line-clamp-3',
+  4: 'line-clamp-4',
+  5: 'line-clamp-5',
+  6: 'line-clamp-6',
+};
+
 export const Heading = forwardRef(
   <E extends HeadingAsVariants>(
-    { as, children, size = 'xl', ...headingProps }: HeadingProps<E>,
+    {
+      as,
+      children,
+      size = 'xl',
+      headingLineClamp = '1',
+      className,
+      ...headingProps
+    }: HeadingProps<E>,
     ref?: HeadingRef<E>
   ) => {
     const HeadingComponent = as || defaultHeadingElement;
@@ -38,7 +57,14 @@ export const Heading = forwardRef(
       <HeadingComponent
         {...headingProps}
         ref={ref}
-        className={twMerge(clsx('font-700', headingFontSizes[size]))}
+        className={twMerge(
+          clsx(
+            'font-700',
+            headingFontSizes[size],
+            headingLineClamps[headingLineClamp],
+            className
+          )
+        )}
       >
         {children}
       </HeadingComponent>
