@@ -5335,9 +5335,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"atomic-router-react@npm:^0.7.4":
-  version: 0.7.4
-  resolution: "atomic-router-react@npm:0.7.4"
+"atomic-router-react@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "atomic-router-react@npm:0.8.0"
   dependencies:
     clsx: ^1.1.1
   peerDependencies:
@@ -5345,7 +5345,7 @@ __metadata:
     effector: ^22
     effector-react: ^22
     react: ^17 || ^18
-  checksum: 09a46c279c301f50292ba89ae44d3a8d8684554b4f7aad940437bcb5db2b955e754ef7f078afb374bf214b502a79fca77400490e7b92ae92731a58f785f6005a
+  checksum: c4f1682bf60e6edef2ac0f2cda236b40cd2b503aaa3f5cedad01c50002e08f77f4bc5b6fec5edd32b7444eb55d918a718b4e56ce84c1d86e4761ad142fbbb285
   languageName: node
   linkType: hard
 
@@ -6375,7 +6375,7 @@ __metadata:
     "@vitejs/plugin-react": ^2.1.0
     "@vitest/ui": ^0.24.1
     atomic-router: ^0.7.1
-    atomic-router-react: ^0.7.4
+    atomic-router-react: ^0.8.0
     autoprefixer: ^10.4.12
     babel-loader: ^8.2.5
     clsx: ^1.2.1
