@@ -17,7 +17,7 @@
     "@fastify/swagger": "^7.6.1",
     "@fastify/type-provider-json-schema-to-ts": "^2.1.1",
     "@prisma/client": "^4.3.1",
-    "argon2": "^0.29.1",
+    "argon2": "^0.30.1",
     "fastify": "^4.6.0",
     "fastify-plugin": "^4.2.1"
   },

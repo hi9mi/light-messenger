@@ -2147,7 +2147,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mapbox/node-pre-gyp@npm:^1.0.9":
+"@mapbox/node-pre-gyp@npm:^1.0.10":
   version: 1.0.10
   resolution: "@mapbox/node-pre-gyp@npm:1.0.10"
   dependencies:
@@ -5074,14 +5074,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"argon2@npm:^0.29.1":
-  version: 0.29.1
-  resolution: "argon2@npm:0.29.1"
+"argon2@npm:^0.30.1":
+  version: 0.30.1
+  resolution: "argon2@npm:0.30.1"
   dependencies:
-    "@mapbox/node-pre-gyp": ^1.0.9
+    "@mapbox/node-pre-gyp": ^1.0.10
     "@phc/format": ^1.0.0
     node-addon-api: ^5.0.0
-  checksum: 91082769fc145e34689dd56fd743e17e0910b153ef13e22898a42f5c069b15a488fa27c239b4f3dbd38357eacddb2b1ad43532a78eb633f6bbe4dcde4cc93c53
+  checksum: 5e3de674b6da80d88eefd5eea4218a408b27754cd51a7186182de55556aa2199d8384047efcb7c3ed410f987670ea43a1bf3388a2f63e2a8b017e89b3d3f8cdb
   languageName: node
   linkType: hard
 
@@ -14626,7 +14626,7 @@ __metadata:
     "@types/node": ^18.7.18
     "@typescript-eslint/eslint-plugin": ^5.38.1
     "@typescript-eslint/parser": ^5.38.1
-    argon2: ^0.29.1
+    argon2: ^0.30.1
     cross-env: ^7.0.3
     eslint: ^8.24.0
     eslint-config-prettier: ^8.5.0
