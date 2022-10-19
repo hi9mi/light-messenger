@@ -13,6 +13,7 @@
     "test:ui": "vitest --ui"
   },
   "dependencies": {
+    "@effector/reflect": "^8.0.0",
     "atomic-router": "^0.7.1",
     "atomic-router-react": "^0.7.4",
     "clsx": "^1.2.1",

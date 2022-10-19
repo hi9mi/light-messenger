@@ -116,6 +116,7 @@ module.exports = {
       '7xl': '80rem',
     },
     spacing: {
+      0: '0px',
       ...px(1),
       ...rem(5),
       ...rem(8),

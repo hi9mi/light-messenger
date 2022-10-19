@@ -1712,6 +1712,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@effector/reflect@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@effector/reflect@npm:8.0.0"
+  peerDependencies:
+    effector: ^22.0.0
+    effector-react: ^22.1.0
+    react: ">=16.8.0 <19.0.0"
+  checksum: a500cb2f4ecf8be73b3786ce1ce19224440bc266a9965866d80f3c10d741323839524c8ffc9aa36b28a0be76350a47802056b253821590e881dba3e7a3657ca7
+  languageName: node
+  linkType: hard
+
 "@esbuild/android-arm@npm:0.15.10":
   version: 0.15.10
   resolution: "@esbuild/android-arm@npm:0.15.10"
@@ -6342,6 +6353,7 @@ __metadata:
   resolution: "client@workspace:client"
   dependencies:
     "@babel/core": ^7.19.3
+    "@effector/reflect": ^8.0.0
     "@mdx-js/react": ^1.6.22
     "@storybook/addon-actions": ^6.5.12
     "@storybook/addon-docs": ^6.5.12
