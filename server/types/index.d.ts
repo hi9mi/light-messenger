@@ -2,7 +2,7 @@ import 'fastify';
 import 'fast-jwt';
 import '@fastify/jwt';
 import 'pino';
-import '@prisma/client';
+import type { PrismaClient } from '../__generated__/prisma/index.d';
 
 type MessengerConfig = {
   PORT: string;

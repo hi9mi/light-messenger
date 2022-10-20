@@ -42,7 +42,7 @@ export const signUpHandler = async (
     },
   });
 
-  reply
+  return reply
     .setCookie(request.config.COOKIE_NAME, refreshToken, {
       domain: 'localhost',
       path: '/auth',
@@ -91,7 +91,7 @@ export const signInHandler = async (
     },
   });
 
-  reply
+  return reply
     .setCookie(request.config.COOKIE_NAME, refreshToken, {
       domain: 'localhost',
       path: '/auth',
@@ -113,14 +113,14 @@ export const refreshTokenHandler = async (
     where: { userId },
   });
   const refreshTokenFromCookie = request.cookies.refreshToken;
-
-  if (!hashedRt || !refreshTokenFromCookie) {
+  console.log(hashedRt, 455664646);
+  if (!hashedRt?.hashedRt || !refreshTokenFromCookie) {
     return reply.forbidden('Refresh token is required');
   }
 
   const isValidRt = await argon.verify(
-    hashedRt!.hashedRt!,
-    refreshTokenFromCookie!,
+    hashedRt.hashedRt,
+    refreshTokenFromCookie,
   );
 
   if (!isValidRt) {
@@ -141,7 +141,7 @@ export const refreshTokenHandler = async (
     },
   });
 
-  reply
+  return reply
     .setCookie(request.config.COOKIE_NAME, refreshToken, {
       domain: 'localhost',
       path: '/auth',
