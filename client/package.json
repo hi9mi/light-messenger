@@ -15,7 +15,7 @@
   "dependencies": {
     "@effector/reflect": "^8.0.0",
     "atomic-router": "^0.7.1",
-    "atomic-router-react": "^0.7.4",
+    "atomic-router-react": "^0.8.0",
     "clsx": "^1.2.1",
     "composable-forms": "^0.1.19",
     "effector": "^22.3.0",
