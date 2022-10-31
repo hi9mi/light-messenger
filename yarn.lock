@@ -1754,13 +1754,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/accept-negotiator@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@fastify/accept-negotiator@npm:1.0.0"
-  checksum: 9b6be6bfd0f1475e4d06ffbd6359d7cf70841cc8e37abe6fe32f2e0e8185da6077da0d5c6610ade356ed3d4af4d3a642094b4861b123607987491bef2a384957
-  languageName: node
-  linkType: hard
-
 "@fastify/ajv-compiler@npm:^3.3.1":
   version: 3.3.1
   resolution: "@fastify/ajv-compiler@npm:3.3.1"
@@ -1853,32 +1846,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/static@npm:^6.0.0":
-  version: 6.5.0
-  resolution: "@fastify/static@npm:6.5.0"
+"@fastify/swagger@npm:^8.1.0":
+  version: 8.1.0
+  resolution: "@fastify/swagger@npm:8.1.0"
   dependencies:
-    "@fastify/accept-negotiator": ^1.0.0
-    content-disposition: ^0.5.3
-    fastify-plugin: ^4.0.0
-    glob: ^8.0.1
-    p-limit: ^3.1.0
-    readable-stream: ^4.0.0
-    send: ^0.18.0
-  checksum: 31ef10916847c51fb4c360860f56acee1cbd7a896b66a05440d4eff70473c5b4cdf908b4719a5a22a876617fdc4a4e0fe3673bd5b40c9d61260a90e08abc1d3d
-  languageName: node
-  linkType: hard
-
-"@fastify/swagger@npm:^7.6.1":
-  version: 7.6.1
-  resolution: "@fastify/swagger@npm:7.6.1"
-  dependencies:
-    "@fastify/static": ^6.0.0
     fastify-plugin: ^4.0.0
     json-schema-resolver: ^2.0.0
     openapi-types: ^12.0.0
     rfdc: ^1.3.0
     yaml: ^2.1.1
-  checksum: db3fde9cadbd28e8dad9bdaa71388cd8f3085841b08e671ef560b5a3054d462dc88ed5263a4b6c78dea84e4450a3506cb5eb7a03375055fbf4d2f29f1bd37f26
+  checksum: eae324cb55c1dde4ea247d63a7a191be4510547e4a4754e625d179421058b11bce275ac11c360923c5be47c82a0b1a905eacf1f983f91c325b211168e164dca1
   languageName: node
   linkType: hard
 
@@ -6639,7 +6616,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"content-disposition@npm:0.5.4, content-disposition@npm:^0.5.3":
+"content-disposition@npm:0.5.4":
   version: 0.5.4
   resolution: "content-disposition@npm:0.5.4"
   dependencies:
@@ -12588,7 +12565,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-limit@npm:^3.0.2, p-limit@npm:^3.1.0":
+"p-limit@npm:^3.0.2":
   version: 3.1.0
   resolution: "p-limit@npm:3.1.0"
   dependencies:
@@ -14538,7 +14515,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"send@npm:0.18.0, send@npm:^0.18.0":
+"send@npm:0.18.0":
   version: 0.18.0
   resolution: "send@npm:0.18.0"
   dependencies:
@@ -14620,7 +14597,7 @@ __metadata:
     "@fastify/env": ^4.1.0
     "@fastify/jwt": ^6.3.2
     "@fastify/sensible": ^5.1.1
-    "@fastify/swagger": ^7.6.1
+    "@fastify/swagger": ^8.1.0
     "@fastify/type-provider-json-schema-to-ts": ^2.1.1
     "@prisma/client": ^4.5.0
     "@types/node": ^18.7.18
