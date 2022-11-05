@@ -1,3 +1,4 @@
+import closeWithGrace from 'close-with-grace';
 import { initializeServer } from './server';
 
 const envToLogger = {
@@ -29,6 +30,12 @@ const bootstrap = async () => {
       server.log.info(`Server listening at: ${address}`);
     },
   );
+
+  closeWithGrace({ delay: 10000 }, async () => {
+    server.log.info('Server closing');
+    await server.close();
+    server.log.info('Server closed');
+  });
 };
 
 bootstrap();
