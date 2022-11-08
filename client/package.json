@@ -2,7 +2,6 @@
   "name": "client",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -10,7 +9,9 @@
     "storybook": "set NODE_OPTIONS=--openssl-legacy-provider && start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test": "vitest",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "api": "openapi && eslint --fix \"./src/shared/api/internal/index.gen.ts\"",
+    "lint": "eslint --fix \"./src/**/**.{ts,tsx,js,jsx,json}\""
   },
   "dependencies": {
     "@effector/reflect": "^8.0.0",
@@ -25,7 +26,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-number-format": "^5.0.1",
-    "tailwind-merge": "^1.6.1"
+    "tailwind-merge": "^1.6.1",
+    "typed-contracts": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
@@ -51,6 +53,7 @@
     "@vitest/ui": "^0.24.1",
     "autoprefixer": "^10.4.12",
     "babel-loader": "^8.2.5",
+    "effector-openapi-preset": "^0.3.3",
     "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
@@ -59,6 +62,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.6.6",
     "jsdom": "^20.0.1",
+    "openapi": "^1.0.0",
     "postcss": "^8.4.17",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",

@@ -19,7 +19,7 @@
     "@typescript-eslint",
     "prettier"
   ],
-  "ignorePatterns": ["dist", "node_modules", "*.config.cjs"],
+  "ignorePatterns": ["dist", "node_modules", "*.config.cjs", "*.config.js"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
