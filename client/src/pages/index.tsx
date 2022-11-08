@@ -7,11 +7,16 @@ export const Pages = () => {
     <>
       <Route route={routes.signUp} view={SignUp} />
       <Route route={routes.signIn} view={SignIn} />
+      <Route route={routes.home} view={() => <div>Home page</div>} />
     </>
   );
 };
 
 export const routesMap = [
+  {
+    path: '/',
+    route: routes.home,
+  },
   {
     path: '/auth/sign-up',
     route: routes.signUp,
