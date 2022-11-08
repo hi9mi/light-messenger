@@ -1,5 +1,7 @@
 import fastify from 'fastify';
 import cookie from '@fastify/cookie';
+import fs from 'fs/promises';
+import path from 'path';
 import type { FastifyBaseLogger, FastifyServerOptions } from 'fastify';
 import type { FastifyCookieOptions } from '@fastify/cookie';
 import type { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts';
@@ -34,6 +36,12 @@ const initializeServer = async (
   await server.register(ping);
   await server.register(authRoutes, { prefix: '/auth' });
   await server.register(userRoutes, { prefix: '/user' });
+
+  const swaggerJson = JSON.stringify(server.swagger(), undefined, 2);
+  await fs.writeFile(
+    path.resolve(__dirname, '..', '..', 'client', 'swagger-api.json'),
+    swaggerJson,
+  );
 
   return server;
 };
