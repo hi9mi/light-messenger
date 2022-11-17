@@ -1,6 +1,6 @@
 import Joi from 'joi';
 import { composeFields } from 'composable-forms';
-import { createEvent, createStore, sample } from 'effector';
+import { combine, createEvent, createStore, sample } from 'effector';
 
 import { createControl } from '@lm-client/shared/libs/forms';
 
@@ -38,6 +38,16 @@ export const signUpForm = composeFields({
 });
 
 export const formSubmitted = createEvent();
+
+export const $disabledSubmitButton = combine(
+  [
+    email.$hasErrors,
+    phoneNumber.$hasErrors,
+    username.$hasErrors,
+    password.$hasErrors,
+  ],
+  (formHasErrors) => formHasErrors.some(Boolean)
+);
 
 sample({
   clock: formSubmitted,

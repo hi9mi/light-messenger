@@ -21,15 +21,7 @@ export const SignUpForm = () => {
       <PhoneNumberField />
       <UsernameField />
       <PasswordField />
-      <Button
-        onClick={submit}
-        color="blue"
-        size="lg"
-        type="submit"
-        className="self-end"
-      >
-        Sign up
-      </Button>
+      <SubmitButton />
     </form>
   );
 };
@@ -65,6 +57,8 @@ const EmailField = reflect({
     fullWidth: true,
   },
 });
+
+EmailField.displayName = 'EmailField';
 
 const PhoneNumberField = reflect({
   view: PatternFormat,
@@ -106,6 +100,8 @@ const PhoneNumberField = reflect({
   },
 });
 
+PhoneNumberField.displayName = 'PhoneNumberField';
+
 const UsernameField = reflect({
   view: Input,
   bind: {
@@ -138,6 +134,8 @@ const UsernameField = reflect({
     fullWidth: true,
   },
 });
+
+UsernameField.displayName = 'UsernameField';
 
 const PasswordInput = ({
   togglePasswordField,
@@ -209,3 +207,19 @@ const PasswordField = reflect({
     togglePasswordField: model.toggledPasswordField,
   },
 });
+
+PasswordField.displayName = 'PasswordField';
+
+const SubmitButton = reflect({
+  view: Button,
+  bind: {
+    color: 'blue',
+    size: 'lg',
+    type: 'submit',
+    className: 'self-end',
+    disabled: model.$disabledSubmitButton,
+    children: 'Sign Up',
+  },
+});
+
+SubmitButton.displayName = 'SubmitButton';
