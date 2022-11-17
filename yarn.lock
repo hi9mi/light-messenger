@@ -6933,7 +6933,7 @@ __metadata:
     babel-loader: ^8.2.5
     clsx: ^1.2.1
     composable-forms: ^0.1.19
-    effector: ^22.3.0
+    effector: ^22.4.0
     effector-openapi-preset: ^0.3.3
     effector-react: ^22.3.3
     eslint: ^8.24.0
@@ -8097,10 +8097,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"effector@npm:^22.3.0":
-  version: 22.3.0
-  resolution: "effector@npm:22.3.0"
-  checksum: a220699e03c680fcb13d8e05cd50b7d6ee7ec054b6b18f6ae87edc1b5599debdebe5dbf60e376e2236b5b30872d4d6388d5f02c64406b632d8f65b769538437f
+"effector@npm:^22.4.0":
+  version: 22.4.0
+  resolution: "effector@npm:22.4.0"
+  checksum: 87d3a9df2d9378d1ee88aeb585eb26db29c2c941a04d5a105f1b64f28a4129824bfc7ee5bd45ee4a4f7c8f6b54627c95de947f18badf1297ab29b9a11de14b32
   languageName: node
   linkType: hard
 
