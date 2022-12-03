@@ -30,7 +30,7 @@ const sizes = {
 } as const;
 
 const disabledVariants = {
-  common: 'disabled:pointer-events-none cursor-not-allowed',
+  common: 'disabled:pointer-events-none',
   solid: 'disabled:bg-gray-100',
   outline: 'disabled:border-gray-100 disabled:text-gray-100',
   ghost: 'disabled:text-gray-100',
