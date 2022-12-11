@@ -57,8 +57,11 @@ sample({
 });
 
 export const toggledPasswordField = createEvent();
-export const $passwordFieldType = createStore<'password' | 'text'>(
-  'password'
-).on(toggledPasswordField, (fieldType) =>
-  fieldType === 'password' ? 'text' : 'password'
-);
+export const $passwordFieldType = createStore<'password' | 'text'>('password');
+
+sample({
+  clock: toggledPasswordField,
+  source: $passwordFieldType,
+  fn: (type) => (type === 'password' ? 'text' : 'password'),
+  target: $passwordFieldType,
+});
