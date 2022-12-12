@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import * as model from './model';
 
 describe('feature sign up', () => {
@@ -18,5 +19,27 @@ describe('feature sign up', () => {
     expect(model.signUpForm.$hasErrors.getState()).toBeTruthy();
 
     model.formSubmitted();
+  });
+
+  test('submitted the form if all fields are filled out successfully', () => {
+    const signUpFxMock = vi.fn();
+
+    model.signUpFx.use(signUpFxMock);
+
+    model.username.changed('hi9mi');
+    model.email.changed('hi9mi@gmail.com');
+    model.phoneNumber.changed('+7 (777) 777 777');
+    model.password.changed('superSecretPassword');
+
+    expect(model.signUpForm.$value.getState()).toMatchObject({
+      username: 'hi9mi',
+      email: 'hi9mi@gmail.com',
+      phoneNumber: '+7 (777) 777 777',
+      password: 'superSecretPassword',
+    });
+
+    model.formSubmitted();
+
+    expect(signUpFxMock).toBeCalledTimes(1);
   });
 });

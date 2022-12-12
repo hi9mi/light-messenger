@@ -113,7 +113,7 @@ export const refreshTokenHandler = async (
     where: { userId },
   });
   const refreshTokenFromCookie = request.cookies.refreshToken;
-  console.log(hashedRt, 455664646);
+
   if (!hashedRt?.hashedRt || !refreshTokenFromCookie) {
     return reply.forbidden('Refresh token is required');
   }

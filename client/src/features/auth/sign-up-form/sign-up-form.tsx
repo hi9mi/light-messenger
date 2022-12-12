@@ -2,29 +2,41 @@ import { PatternFormat } from 'react-number-format';
 import { reflect } from '@effector/reflect';
 import { useUnit } from 'effector-react';
 
-import { Button, Input, InputProps } from '@lm-client/shared/ui';
+import { Button, Heading, Input, InputProps } from '@lm-client/shared/ui';
 import { checkError, failureMessage } from '@lm-client/shared/libs';
 import * as model from './model';
 
 export const SignUpForm = () => {
   const submit = useUnit(model.formSubmitted);
 
+  const handleSubmitForm = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submit();
+  };
+
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        submit();
-      }}
-      className="mb-6 flex flex-col gap-y-40"
-    >
-      <EmailField />
-      <PhoneNumberField />
-      <UsernameField />
-      <PasswordField />
-      <SubmitButton />
-    </form>
+    <>
+      <SignUpFailureMessage />
+      <form onSubmit={handleSubmitForm} className="mb-6 flex flex-col gap-y-40">
+        <EmailField />
+        <PhoneNumberField />
+        <UsernameField />
+        <PasswordField />
+        <SubmitButton />
+      </form>
+    </>
   );
 };
+
+const SignUpFailureMessage = reflect({
+  view: Heading,
+  bind: {
+    as: 'h2',
+    size: 'md',
+    children: model.$signUpFailureMessage,
+    className: 'text-red text-center mb-40',
+  },
+});
 
 const EmailField = reflect({
   view: Input,
@@ -115,6 +127,7 @@ const UsernameField = reflect({
     label: 'Username field',
     type: 'text',
     inputMode: 'text',
+    autoComplete: 'username',
     endAdornment: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -186,6 +199,7 @@ const PasswordInput = ({
         )}
       </button>
     }
+    autoComplete="current-password"
     {...inputProps}
   />
 );

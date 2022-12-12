@@ -1,5 +1,6 @@
 import { attach, createEffect, createStore, sample } from 'effector';
-
+import { persist } from 'effector-storage/local';
+import type { ApiError } from '@lm-client/shared/types';
 export interface Request {
   path: string;
   method: 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH';
@@ -11,6 +12,10 @@ export interface Request {
 export const $token = createStore('');
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isApiError = (err: any): err is ApiError => {
+  return err.statusCode !== undefined;
+};
+
 const baseRequestFx = createEffect<Request, unknown>(
   async ({ path, method, headers, body }) => {
     const res = await fetch(path, {
@@ -19,7 +24,14 @@ const baseRequestFx = createEffect<Request, unknown>(
       ...(Boolean(body) && { body: JSON.stringify(body) }),
     });
 
-    if (!res.ok) throw Error(String(res.status));
+    if (!res.ok) {
+      const error = (await res.json()) as ApiError;
+
+      if (error.statusCode) {
+        throw error;
+      }
+      throw Error(String(res.status));
+    }
 
     return res.json();
   }
@@ -75,6 +87,21 @@ export const handledRequestFx = createEffect<
         });
       }
     }
+
+    if (isApiError(error)) {
+      if (error.statusCode === 401 && tries > 0) {
+        await updateTokenFx();
+        await handledRequestFx({
+          path,
+          method,
+          headers,
+          body,
+          tries: tries - 1,
+        });
+      }
+    }
+
+    throw error;
   }
 });
 
@@ -82,4 +109,9 @@ sample({
   clock: updateTokenFx.doneData,
   fn: (response) => response.token,
   target: $token,
+});
+
+persist({
+  store: $token,
+  key: 'token',
 });
