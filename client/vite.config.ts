@@ -9,5 +9,13 @@ export default defineConfig({
       '@lm-client': path.resolve(__dirname, 'src'),
     },
   },
-  plugins: [react()],
+  plugins: [
+    react({
+      babel: {
+        plugins: ['effector/babel-plugin'],
+        babelrc: true,
+        configFile: true,
+      },
+    }),
+  ],
 });
