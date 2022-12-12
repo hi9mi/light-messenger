@@ -2054,9 +2054,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/sensible@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "@fastify/sensible@npm:5.1.1"
+"@fastify/sensible@npm:^5.2.0":
+  version: 5.2.0
+  resolution: "@fastify/sensible@npm:5.2.0"
   dependencies:
     fast-deep-equal: ^3.1.1
     fastify-plugin: ^4.0.0
@@ -2065,7 +2065,7 @@ __metadata:
     ms: ^2.1.3
     type-is: ^1.6.18
     vary: ^1.1.2
-  checksum: 25719212b91d9b96a99e14f22bd1ac534e29d1cae0752fbdb41152cce5b06c34848bf033914c83727b61bb312a425262dbe6f891f1d02a3263fd20de1f3637fd
+  checksum: ceb82fd21d7844f0c487fca57ab766dd9efe8202661fd282eb539e783ebdfbc87d1a356578eb988958be2b3e83fbfa1193b905dd5b8ec61bc628416823348835
   languageName: node
   linkType: hard
 
@@ -15765,7 +15765,7 @@ __metadata:
     "@fastify/cors": ^8.2.0
     "@fastify/env": ^4.1.0
     "@fastify/jwt": ^6.3.2
-    "@fastify/sensible": ^5.1.1
+    "@fastify/sensible": ^5.2.0
     "@fastify/swagger": ^8.2.0
     "@fastify/type-provider-json-schema-to-ts": ^2.1.1
     "@prisma/client": ^4.6.1
