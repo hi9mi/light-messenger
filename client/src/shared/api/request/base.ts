@@ -85,10 +85,10 @@ export const handledRequestFx = createEffect<
           body,
           tries: tries - 1,
         });
+      } else {
+        throw error;
       }
-    }
-
-    if (isApiError(error)) {
+    } else if (isApiError(error)) {
       if (error.statusCode === 401 && tries > 0) {
         await updateTokenFx();
         await handledRequestFx({
@@ -98,10 +98,12 @@ export const handledRequestFx = createEffect<
           body,
           tries: tries - 1,
         });
+      } else {
+        throw error;
       }
+    } else {
+      throw error;
     }
-
-    throw error;
   }
 });
 
