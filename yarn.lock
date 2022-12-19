@@ -2884,15 +2884,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@storybook/addon-links@npm:^6.5.12":
-  version: 6.5.12
-  resolution: "@storybook/addon-links@npm:6.5.12"
+"@storybook/addon-links@npm:^6.5.14":
+  version: 6.5.14
+  resolution: "@storybook/addon-links@npm:6.5.14"
   dependencies:
-    "@storybook/addons": 6.5.12
-    "@storybook/client-logger": 6.5.12
-    "@storybook/core-events": 6.5.12
+    "@storybook/addons": 6.5.14
+    "@storybook/client-logger": 6.5.14
+    "@storybook/core-events": 6.5.14
     "@storybook/csf": 0.0.2--canary.4566f4d.1
-    "@storybook/router": 6.5.12
+    "@storybook/router": 6.5.14
     "@types/qs": ^6.9.5
     core-js: ^3.8.2
     global: ^4.4.0
@@ -2908,7 +2908,7 @@ __metadata:
       optional: true
     react-dom:
       optional: true
-  checksum: 9e1394bc2fed9019537f3fee9f60abc4ea866d1688df72a435052dd07f25a8bac848d6acc2beef92af0cebc3715e9db9ae1bd95c87311a8b9fad7dee988bbd1d
+  checksum: 7dc537aab36fd80ba704b8618c24aa0b9f59d6c28502dd43c01e7dae4194fbce37a95cb7797c4b52547d9662bf9619cd0901f946bddcec7580986df2e38da574
   languageName: node
   linkType: hard
 
@@ -7286,7 +7286,7 @@ __metadata:
     "@storybook/addon-docs": ^6.5.14
     "@storybook/addon-essentials": ^6.5.14
     "@storybook/addon-interactions": ^6.5.13
-    "@storybook/addon-links": ^6.5.12
+    "@storybook/addon-links": ^6.5.14
     "@storybook/builder-vite": ^0.2.3
     "@storybook/react": ^6.5.13
     "@storybook/testing-library": ^0.0.13
