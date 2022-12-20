@@ -1713,6 +1713,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.18.3":
+  version: 7.20.6
+  resolution: "@babel/runtime@npm:7.20.6"
+  dependencies:
+    regenerator-runtime: ^0.13.11
+  checksum: 42a8504db21031b1859fbc0f52d698a3d2f5ada9519eb76c6f96a7e657d8d555732a18fe71ef428a67cc9fc81ca0d3562fb7afdc70549c5fec343190cbaa9b03
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:~7.5.4":
   version: 7.5.5
   resolution: "@babel/runtime@npm:7.5.5"
@@ -12132,14 +12141,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-schema-to-ts@npm:^2.5.5":
-  version: 2.5.5
-  resolution: "json-schema-to-ts@npm:2.5.5"
+"json-schema-to-ts@npm:^2.6.2":
+  version: 2.6.2
+  resolution: "json-schema-to-ts@npm:2.6.2"
   dependencies:
+    "@babel/runtime": ^7.18.3
     "@types/json-schema": ^7.0.9
     ts-algebra: ^1.1.1
     ts-toolbelt: ^9.6.0
-  checksum: 6e3cfc7599bea804f0060759168a5c19ca6154397eba33e8d19b1cd50f93e421c5b4110dff153d087dfb6986a77433e3d77c36ac54fbfc229c25fc648dc57cc5
+  checksum: e408f8d3d32dda1a001f194cf5514fea7ef0a4dc4ed4f5448b9ea02df3a071119a0517aaffb639de725f4a12102406dfdf7743455e0e30317e231bb551362039
   languageName: node
   linkType: hard
 
@@ -15192,6 +15202,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"regenerator-runtime@npm:^0.13.11":
+  version: 0.13.11
+  resolution: "regenerator-runtime@npm:0.13.11"
+  checksum: 27481628d22a1c4e3ff551096a683b424242a216fee44685467307f14d58020af1e19660bf2e26064de946bad7eff28950eae9f8209d55723e2d9351e632bbb4
+  languageName: node
+  linkType: hard
+
 "regenerator-runtime@npm:^0.13.2, regenerator-runtime@npm:^0.13.4, regenerator-runtime@npm:^0.13.7":
   version: 0.13.9
   resolution: "regenerator-runtime@npm:0.13.9"
@@ -15905,7 +15922,7 @@ __metadata:
     eslint-plugin-prettier: ^4.2.1
     fastify: ^4.6.0
     fastify-plugin: ^4.3.0
-    json-schema-to-ts: ^2.5.5
+    json-schema-to-ts: ^2.6.2
     pino-pretty: ^9.1.0
     prettier: ^2.7.1
     ts-node-dev: ^2.0.0
