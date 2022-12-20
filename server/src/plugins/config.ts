@@ -13,6 +13,7 @@ export const config = fp(
         'REFRESH_TOKEN_EXPIRES_IN',
         'ACCESS_TOKEN_EXPIRES_IN',
         'COOKIE_NAME',
+        'CLIENT_BASE_URL',
       ],
       properties: {
         PORT: {
@@ -29,11 +30,11 @@ export const config = fp(
         },
         REFRESH_TOKEN_EXPIRES_IN: {
           type: 'string',
-          default: '1d',
+          default: '2d',
         },
         ACCESS_TOKEN_EXPIRES_IN: {
           type: 'string',
-          default: '5m',
+          default: '1m',
         },
         HOST: {
           type: 'string',
@@ -42,6 +43,9 @@ export const config = fp(
         COOKIE_NAME: {
           type: 'string',
           default: 'cookie_name',
+        },
+        CLIENT_BASE_URL: {
+          type: 'string',
         },
       },
     };
