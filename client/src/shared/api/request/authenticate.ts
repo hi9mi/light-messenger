@@ -17,6 +17,7 @@ export const signUpFx = createEffect<
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       body: signUpPayload,
     }) as Promise<{ user: User; token: string }>
 );
@@ -36,6 +37,7 @@ export const signInFx = createEffect<
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       body: signInPayload,
     }) as Promise<{ user: User; token: string }>
 );
@@ -47,6 +49,7 @@ export const logoutFx = createEffect<void, { message: string }, ApiError>(
         'auth/local/logout',
         import.meta.env.VITE_BASE_API_URL
       ).toString(),
+      credentials: 'include',
       method: 'POST',
     }) as Promise<{ message: string }>
 );

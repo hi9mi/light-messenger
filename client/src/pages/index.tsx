@@ -1,15 +1,8 @@
 import { createRoutesView } from 'atomic-router-react';
 import { routes } from '@lm-client/shared/routes';
 import { SignInPage, SignUpPage } from './auth';
+import { HomePage } from './home';
 import { AuthLayout } from '@lm-client/shared/ui';
-
-export const Pages = createRoutesView({
-  routes: [
-    { route: routes.signIn, view: SignInPage, layout: AuthLayout },
-    { route: routes.signUp, view: SignUpPage, layout: AuthLayout },
-    { route: routes.home, view: () => <div>HomePage</div> },
-  ],
-});
 
 export const routesMap = [
   {
@@ -25,3 +18,11 @@ export const routesMap = [
     route: routes.signIn,
   },
 ];
+
+export const Pages = createRoutesView({
+  routes: [
+    { route: routes.signIn, view: SignInPage, layout: AuthLayout },
+    { route: routes.signUp, view: SignUpPage, layout: AuthLayout },
+    { route: routes.home, view: HomePage },
+  ],
+});

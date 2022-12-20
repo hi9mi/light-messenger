@@ -44,8 +44,6 @@ export const signUpHandler = async (
 
   return reply
     .setCookie(request.config.COOKIE_NAME, refreshToken, {
-      domain: 'localhost',
-      path: '/auth',
       httpOnly: true,
     })
     .status(201)
@@ -93,8 +91,6 @@ export const signInHandler = async (
 
   return reply
     .setCookie(request.config.COOKIE_NAME, refreshToken, {
-      domain: 'localhost',
-      path: '/auth',
       httpOnly: true,
     })
     .status(200)
@@ -143,8 +139,6 @@ export const refreshTokenHandler = async (
 
   return reply
     .setCookie(request.config.COOKIE_NAME, refreshToken, {
-      domain: 'localhost',
-      path: '/auth',
       httpOnly: true,
     })
     .status(200)

@@ -12,7 +12,7 @@ export const userRoutes = async (server: FastifyInstance) => {
       });
 
       if (!user) {
-        reply.notFound('User not found');
+        return reply.notFound('User not found');
       }
 
       return reply.status(200).send(user);
