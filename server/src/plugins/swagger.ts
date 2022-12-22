@@ -14,7 +14,10 @@ export const swaggerPlugin = fp(async (server) => {
       schemes: ['http'],
       consumes: ['application/json'],
       produces: ['application/json'],
-      tags: [{ name: 'auth', description: 'Auth related end-points' }],
+      tags: [
+        { name: 'auth', description: 'Auth related end-points' },
+        { name: 'users', description: 'Users related end-points' },
+      ],
     },
     uiConfig: {
       docExpansion: 'list',

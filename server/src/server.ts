@@ -35,7 +35,7 @@ const initializeServer = async (
   await server.register(swaggerPlugin);
   await server.register(ping);
   await server.register(authRoutes, { prefix: '/auth' });
-  await server.register(userRoutes, { prefix: '/user' });
+  await server.register(userRoutes);
 
   const swaggerJson = JSON.stringify(server.swagger(), undefined, 2);
   await fs.writeFile(

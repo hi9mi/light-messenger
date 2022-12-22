@@ -28,6 +28,14 @@ export const signUpHandler = async (
       phoneNumber,
       password: hashedPassword,
     },
+    include: {
+      profile: {
+        select: {
+          avatar: true,
+          bio: true,
+        },
+      },
+    },
   });
 
   const token = await reply.authJwtSign({ id: newUser.id });
@@ -63,6 +71,14 @@ export const signInHandler = async (
     where: {
       email,
     },
+    include: {
+      profile: {
+        select: {
+          avatar: true,
+          bio: true,
+        },
+      },
+    },
   });
 
   if (!user) {
@@ -75,8 +91,8 @@ export const signInHandler = async (
     return reply.badRequest('Incorrect credentials');
   }
 
-  const token = await reply.authJwtSign({ id: user!.id });
-  const refreshToken = await reply.refreshJwtSign({ id: user!.id });
+  const token = await reply.authJwtSign({ id: user.id });
+  const refreshToken = await reply.refreshJwtSign({ id: user.id });
 
   const hashedRt = await argon.hash(refreshToken);
 
