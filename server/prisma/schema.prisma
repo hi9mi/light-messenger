@@ -21,8 +21,18 @@ model User {
   refreshToken RefreshToken?
   Messages     Message[]
   Participant  Participant[]
+  Profile      Profile?
 
   @@map("users")
+}
+
+model Profile {
+  UserId User   @relation(fields: [userId], references: [id])
+  userId Int    @id @unique @map("user_id")
+  avatar String
+  bio    String
+
+  @@map("profiles")
 }
 
 model RefreshToken {
@@ -34,25 +44,22 @@ model RefreshToken {
 }
 
 model Message {
-  id          Int          @id @unique @default(autoincrement())
-  text        String
-  Creator     User         @relation(fields: [creatorId], references: [id])
-  creatorId   Int          @map("creator_id")
-  Dialog      Dialog       @relation(fields: [dialogId], references: [id])
-  dialogId    Int          @map("dialog_id")
-  Participant Participant?
+  id        Int    @id @unique @default(autoincrement())
+  text      String
+  Creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId Int    @map("creator_id")
+  Dialog    Dialog @relation(fields: [dialogId], references: [id])
+  dialogId  Int    @map("dialog_id")
 
   @@map("messages")
 }
 
 model Participant {
-  id            Int     @id @unique @default(autoincrement())
-  DialogID      Dialog  @relation(fields: [dialogId], references: [id])
-  dialogId      Int     @map("dialog_id")
-  UserID        User    @relation(fields: [userId], references: [id])
-  userId        Int     @map("user_id")
-  LastMessageID Message @relation(fields: [lastMessageId], references: [id])
-  lastMessageId Int     @unique @map("last_message_id")
+  id       Int    @id @unique @default(autoincrement())
+  DialogID Dialog @relation(fields: [dialogId], references: [id])
+  dialogId Int    @map("dialog_id")
+  UserID   User   @relation(fields: [userId], references: [id])
+  userId   Int    @map("user_id")
 
   @@map("Participants")
 }
