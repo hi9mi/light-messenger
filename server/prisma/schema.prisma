@@ -19,15 +19,15 @@ model User {
   username     String
   password     String
   refreshToken RefreshToken?
-  Messages     Message[]
-  Participant  Participant[]
-  Profile      Profile?
+  messages     Message[]
+  participant  Participant[]
+  profile      Profile?
 
   @@map("users")
 }
 
 model Profile {
-  UserId User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
   userId Int    @id @unique @map("user_id")
   avatar String
   bio    String
@@ -46,9 +46,9 @@ model RefreshToken {
 model Message {
   id        Int    @id @unique @default(autoincrement())
   text      String
-  Creator   User   @relation(fields: [creatorId], references: [id])
+  creator   User   @relation(fields: [creatorId], references: [id])
   creatorId Int    @map("creator_id")
-  Dialog    Dialog @relation(fields: [dialogId], references: [id])
+  dialog    Dialog @relation(fields: [dialogId], references: [id])
   dialogId  Int    @map("dialog_id")
 
   @@map("messages")
@@ -56,9 +56,9 @@ model Message {
 
 model Participant {
   id       Int    @id @unique @default(autoincrement())
-  DialogID Dialog @relation(fields: [dialogId], references: [id])
+  dialog   Dialog @relation(fields: [dialogId], references: [id])
   dialogId Int    @map("dialog_id")
-  UserID   User   @relation(fields: [userId], references: [id])
+  user     User   @relation(fields: [userId], references: [id])
   userId   Int    @map("user_id")
 
   @@map("Participants")
@@ -66,8 +66,8 @@ model Participant {
 
 model Dialog {
   id          Int           @id @unique @default(autoincrement())
-  Message     Message[]
-  Participant Participant[]
+  message     Message[]
+  participant Participant[]
 
   @@map("dialogs")
 }
