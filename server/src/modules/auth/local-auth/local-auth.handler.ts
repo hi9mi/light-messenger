@@ -3,6 +3,8 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 
 import type { SignInBody, SignUpBody } from './local-auth.schema';
 
+//! TODO: when create a new user account, create a new profile for the user
+
 export const signUpHandler = async (
   request: FastifyRequest<{ Body: SignUpBody }>,
   reply: FastifyReply,
@@ -160,7 +162,7 @@ export const refreshTokenHandler = async (
     .status(200)
     .send({ token });
 };
-
+//! Todo: add statuscode to reply object
 export const logoutHandler = async (
   request: FastifyRequest,
   reply: FastifyReply,

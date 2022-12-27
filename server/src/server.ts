@@ -19,6 +19,7 @@ import {
 } from './plugins';
 import { ping } from './ping';
 import { userRoutes } from './modules/user';
+import { dialogRoutes } from './modules/dialog';
 
 const initializeServer = async (
   options: FastifyServerOptions<Server, FastifyBaseLogger> = {},
@@ -36,6 +37,7 @@ const initializeServer = async (
   await server.register(ping);
   await server.register(authRoutes, { prefix: '/auth' });
   await server.register(userRoutes);
+  await server.register(dialogRoutes);
 
   const swaggerJson = JSON.stringify(server.swagger(), undefined, 2);
   await fs.writeFile(
