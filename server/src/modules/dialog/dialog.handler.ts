@@ -75,8 +75,17 @@ export const getAllDialogs = async (
   request: FastifyRequest,
   reply: FastifyReply,
 ) => {
+  const currentUserId = request.user.id;
+
   //! need a pagination ?
   const dialogs = await request.prisma.dialog.findMany({
+    where: {
+      participants: {
+        some: {
+          userId: currentUserId,
+        },
+      },
+    },
     include: {
       participants: { include: { user: { include: { profile: true } } } },
       messages: true,
