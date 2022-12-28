@@ -3,8 +3,6 @@ import type { FastifyReply, FastifyRequest } from 'fastify';
 
 import type { SignInBody, SignUpBody } from './local-auth.schema';
 
-//! TODO: when create a new user account, create a new profile for the user
-
 export const signUpHandler = async (
   request: FastifyRequest<{ Body: SignUpBody }>,
   reply: FastifyReply,
@@ -23,33 +21,41 @@ export const signUpHandler = async (
 
   const hashedPassword = await argon.hash(password);
 
-  const newUser = await request.prisma.user.create({
+  const { id: userId } = await request.prisma.user.create({
     data: {
       username,
       email,
       phoneNumber,
       password: hashedPassword,
     },
-    include: {
-      profile: {
-        select: {
-          avatar: true,
-          bio: true,
-        },
-      },
+    select: {
+      id: true,
     },
   });
 
-  const token = await reply.authJwtSign({ id: newUser.id });
-  const refreshToken = await reply.refreshJwtSign({ id: newUser.id });
+  const token = await reply.authJwtSign({ id: userId });
+  const refreshToken = await reply.refreshJwtSign({ id: userId });
 
   const hashedRt = await argon.hash(refreshToken);
 
-  await request.prisma.refreshToken.create({
-    data: {
-      userId: newUser.id,
-      hashedRt,
-    },
+  await Promise.all([
+    request.prisma.refreshToken.create({
+      data: {
+        userId: userId,
+        hashedRt,
+      },
+    }),
+    request.prisma.profile.create({
+      data: {
+        userId: userId,
+        bio: '',
+        avatar: '',
+      },
+    }),
+  ]);
+
+  const createdUser = await request.prisma.user.findUnique({
+    where: { id: userId },
   });
 
   return reply
@@ -58,7 +64,7 @@ export const signUpHandler = async (
     })
     .status(201)
     .send({
-      user: newUser,
+      user: createdUser,
       token,
     });
 };
