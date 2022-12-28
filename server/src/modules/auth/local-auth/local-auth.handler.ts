@@ -162,7 +162,7 @@ export const refreshTokenHandler = async (
     .status(200)
     .send({ token });
 };
-//! Todo: add statuscode to reply object
+
 export const logoutHandler = async (
   request: FastifyRequest,
   reply: FastifyReply,
@@ -181,5 +181,7 @@ export const logoutHandler = async (
     },
   });
 
-  reply.status(200).send({ message: 'User logged out successfully' });
+  reply
+    .status(200)
+    .send({ statusCode: 200, message: 'User logged out successfully' });
 };
