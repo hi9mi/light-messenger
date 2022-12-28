@@ -5,7 +5,9 @@ export const getUsers = async (
   request: FastifyRequest,
   reply: FastifyReply,
 ) => {
-  const users = await request.prisma.user.findMany();
+  const users = await request.prisma.user.findMany({
+    include: { profile: true },
+  });
 
   if (!users) {
     return reply.notFound('Users not found');
@@ -18,6 +20,9 @@ export const getMe = async (request: FastifyRequest, reply: FastifyReply) => {
   const user = await request.prisma.user.findUnique({
     where: {
       id: request.user.id,
+    },
+    include: {
+      profile: true,
     },
   });
 
