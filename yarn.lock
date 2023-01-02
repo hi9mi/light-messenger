@@ -5581,12 +5581,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/ui@npm:^0.24.1":
-  version: 0.24.1
-  resolution: "@vitest/ui@npm:0.24.1"
+"@vitest/ui@npm:^0.26.3":
+  version: 0.26.3
+  resolution: "@vitest/ui@npm:0.26.3"
   dependencies:
+    fast-glob: ^3.2.12
+    flatted: ^3.2.7
     sirv: ^2.0.2
-  checksum: e6735e84a45cc3cad12ec0bf20b4f6905179daf3aebb3b24b15fff527f498d8a587ae0c5de28da5f3169d7ccad29c93657ec7c1f4fb025e2e137a5719a1185fc
+  checksum: b50b3ca158c7a6b4ed418ae4daf82538b79e241907946b8b48980ce618e415d72065f2f978c205ea23b302fbd1131996ebf47b80b028302c4620cefdd8c98ab3
   languageName: node
   linkType: hard
 
@@ -7742,7 +7744,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.39.0
     "@typescript-eslint/parser": ^5.41.0
     "@vitejs/plugin-react": ^2.2.0
-    "@vitest/ui": ^0.24.1
+    "@vitest/ui": ^0.26.3
     atomic-router: ^0.7.1
     atomic-router-react: ^0.8.0
     autoprefixer: ^10.4.12
@@ -10422,7 +10424,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flatted@npm:^3.1.0":
+"flatted@npm:^3.1.0, flatted@npm:^3.2.7":
   version: 3.2.7
   resolution: "flatted@npm:3.2.7"
   checksum: 427633049d55bdb80201c68f7eb1cbd533e03eac541f97d3aecab8c5526f12a20ccecaeede08b57503e772c769e7f8680b37e8d482d1e5f8d7e2194687f9ea35
