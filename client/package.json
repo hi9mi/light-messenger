@@ -56,7 +56,7 @@
     "autoprefixer": "^10.4.12",
     "babel-loader": "^9.1.0",
     "effector-openapi-preset": "^0.3.3",
-    "eslint": "^8.24.0",
+    "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-effector": "^0.10.3",
     "eslint-plugin-jsx-a11y": "^6.6.1",
