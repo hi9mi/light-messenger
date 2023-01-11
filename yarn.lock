@@ -2050,16 +2050,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fastify/jwt@npm:^6.3.2":
-  version: 6.3.2
-  resolution: "@fastify/jwt@npm:6.3.2"
+"@fastify/jwt@npm:^6.5.0":
+  version: 6.5.0
+  resolution: "@fastify/jwt@npm:6.5.0"
   dependencies:
     "@fastify/error": ^3.0.0
     "@lukeed/ms": ^2.0.0
-    fast-jwt: ^1.5.1
+    fast-jwt: ^2.0.0
     fastify-plugin: ^4.0.0
     steed: ^1.1.3
-  checksum: fca905db1114ce57c09cae0bcf8469c96950870457a07d61845411c96b3a93f5ac39fbadefed5f065e1123054274e73ed9ffdb5fb6aeef8bb6cea4c750cf14a5
+  checksum: 0410d270405f3a0a2731e72498bdb57a99279540b728ba03de6a7281e18982f1cb1fd6e9a73887a174b27c28cd9f79e34e0001347dfcb27cd0fc27f9a36ca7fb
   languageName: node
   linkType: hard
 
@@ -10181,14 +10181,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-jwt@npm:^1.5.1":
-  version: 1.7.1
-  resolution: "fast-jwt@npm:1.7.1"
+"fast-jwt@npm:^2.0.0":
+  version: 2.0.2
+  resolution: "fast-jwt@npm:2.0.2"
   dependencies:
     asn1.js: ^5.3.0
     ecdsa-sig-formatter: ^1.0.11
     mnemonist: ^0.39.0
-  checksum: bc7535a248c065ce7320e669165d9e565ea97680ba2d69773552084210d48f80df9308c561656fb1916f2480e76cf6837eac67524f7983a01889fcfd7ca5f9d4
+  checksum: c6a4eacdc9217e6c23b29d05f6ac3f4247ebf81fae4043000b78dd6483a8916a970ddc28a9aa4f59cd4eeeacd62030778cb630ae38aae44e3e400d1fb13ac8dd
   languageName: node
   linkType: hard
 
@@ -16379,7 +16379,7 @@ __metadata:
     "@fastify/cookie": ^8.3.0
     "@fastify/cors": ^8.2.0
     "@fastify/env": ^4.1.0
-    "@fastify/jwt": ^6.3.2
+    "@fastify/jwt": ^6.5.0
     "@fastify/sensible": ^5.2.0
     "@fastify/swagger": ^8.2.0
     "@fastify/type-provider-json-schema-to-ts": ^2.2.1
