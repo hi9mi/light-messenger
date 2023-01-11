@@ -10,7 +10,7 @@ export const createDialog = async (
   reply: FastifyReply,
 ) => {
   const currentUserId = request.user.id;
-  const { partnerId, message } = request.body;
+  const { recipientId, message } = request.body;
   const { id: dialogId } = await request.prisma.dialog.create({ data: {} });
 
   await Promise.all([
@@ -22,7 +22,7 @@ export const createDialog = async (
         },
         {
           dialogId,
-          userId: partnerId,
+          userId: recipientId,
         },
       ],
     }),
@@ -44,6 +44,9 @@ export const createDialog = async (
       messages: true,
     },
   });
+  request.io
+    .to(recipientId.toString())
+    .emit('SERVER:DIALOG_CREATED', JSON.stringify(createdDialog));
 
   return reply.status(201).send(createdDialog);
 };

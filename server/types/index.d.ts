@@ -3,6 +3,7 @@ import 'fast-jwt';
 import '@fastify/jwt';
 import 'pino';
 import type { PrismaClient } from '../__generated__/prisma/index.d';
+import type { Server } from 'socket.io';
 
 type MessengerConfig = {
   PORT: string;
@@ -28,6 +29,7 @@ declare module 'fastify' {
   interface FastifyRequest {
     prisma: PrismaClient;
     config: MessengerConfig;
+    io: Server;
 
     authJwtVerify<Decoded extends VerifyPayloadType>(
       options?: FastifyJwtVerifyOptions,

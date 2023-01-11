@@ -4,10 +4,10 @@ export const createDialogSchema = {
   body: {
     type: 'object',
     properties: {
-      partnerId: { type: 'number', examples: [1564] },
+      recipientId: { type: 'number', examples: [1564] },
       message: { type: 'string', examples: ['My first message!'] },
     },
-    required: ['partnerId', 'message'],
+    required: ['recipientId', 'message'],
     additionalProperties: false,
   },
   response: {
