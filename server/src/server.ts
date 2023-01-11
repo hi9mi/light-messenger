@@ -5,6 +5,7 @@ import path from 'path';
 import type { FastifyBaseLogger, FastifyServerOptions } from 'fastify';
 import type { FastifyCookieOptions } from '@fastify/cookie';
 import type { JsonSchemaToTsProvider } from '@fastify/type-provider-json-schema-to-ts';
+import socketioServer from 'fastify-socket.io';
 import type { Server } from 'http';
 
 import { authRoutes } from './modules/auth';
@@ -21,6 +22,7 @@ import { ping } from './ping';
 import { userRoutes } from './modules/user';
 import { dialogRoutes } from './modules/dialog';
 import { messageRoutes } from './modules/message';
+import { gateway } from './gateway';
 
 const initializeServer = async (
   options: FastifyServerOptions<Server, FastifyBaseLogger> = {},
@@ -30,6 +32,9 @@ const initializeServer = async (
   await server.register(config);
   await server.register(security);
   await server.register(cookie, {} as FastifyCookieOptions);
+  await server
+    .register(socketioServer)
+    .decorateRequest('io', { getter: () => server.io });
   await server.register(authJwt);
   await server.register(refreshJwt);
   await server.register(sensiblePlugin);
@@ -40,6 +45,7 @@ const initializeServer = async (
   await server.register(userRoutes);
   await server.register(dialogRoutes);
   await server.register(messageRoutes);
+  await server.register(gateway);
 
   const swaggerJson = JSON.stringify(server.swagger(), undefined, 2);
   await fs.writeFile(
