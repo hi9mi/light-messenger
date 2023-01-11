@@ -52,7 +52,7 @@
     "@typescript-eslint/eslint-plugin": "^5.39.0",
     "@typescript-eslint/parser": "^5.41.0",
     "@vitejs/plugin-react": "^2.2.0",
-    "@vitest/ui": "^0.24.1",
+    "@vitest/ui": "^0.26.3",
     "autoprefixer": "^10.4.12",
     "babel-loader": "^9.1.0",
     "effector-openapi-preset": "^0.3.3",
