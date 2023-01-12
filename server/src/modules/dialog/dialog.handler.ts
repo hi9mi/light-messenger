@@ -44,9 +44,10 @@ export const createDialog = async (
       messages: true,
     },
   });
+
   request.io
     .to(recipientId.toString())
-    .emit('SERVER:DIALOG_CREATED', JSON.stringify(createdDialog));
+    .emit('SERVER:CREATE_DIALOG', JSON.stringify(createdDialog));
 
   return reply.status(201).send(createdDialog);
 };
@@ -103,24 +104,36 @@ export const deleteDialog = async (
   reply: FastifyReply,
 ) => {
   const dialogId = request.params.id;
+  const currentUserId = request.user.id;
 
-  const isExistingDialog = Boolean(
-    await request.prisma.dialog.findUnique({
-      where: {
-        id: dialogId,
-      },
-    }),
-  );
+  const currentDialog = await request.prisma.dialog.findUnique({
+    where: {
+      id: dialogId,
+    },
+    include: {
+      participants: true,
+    },
+  });
 
-  if (!isExistingDialog) {
+  if (!Boolean(currentDialog)) {
     return reply.notFound('Dialog not existing');
   }
 
-  await request.prisma.dialog.delete({
+  const deletedDialog = await request.prisma.dialog.delete({
     where: {
       id: dialogId,
     },
   });
+
+  const recipientId = currentDialog?.participants.find(
+    (participant) => participant.userId !== currentUserId,
+  )?.userId;
+
+  if (recipientId) {
+    request.io
+      .to(recipientId.toString())
+      .emit('SERVER:DELETE_DIALOG', JSON.stringify(deletedDialog.id));
+  }
 
   return reply.status(200).send({
     message: 'Dialog successfully deleted',
