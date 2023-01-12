@@ -1,12 +1,33 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import type { CreateMessageBody, EditMessageBody } from './message.schema';
+import type {
+  CreateMessageBody,
+  EditMessageBody,
+  MessageQueryString,
+} from './message.schema';
 
 export const createMessage = async (
-  request: FastifyRequest<{ Body: CreateMessageBody }>,
+  request: FastifyRequest<{
+    Body: CreateMessageBody;
+    Querystring: MessageQueryString;
+  }>,
   reply: FastifyReply,
 ) => {
   const currentUserId = request.user.id;
-  const { text, dialogId } = request.body;
+  const { text } = request.body;
+  const dialogId = request.query.dialogId;
+
+  const currentDialog = await request.prisma.dialog.findUnique({
+    where: { id: dialogId },
+    select: { participants: true },
+  });
+
+  let recipientId: number | undefined;
+
+  if (currentDialog?.participants) {
+    recipientId = currentDialog.participants.find(
+      (participant) => participant.userId !== currentUserId,
+    )?.userId;
+  }
 
   const createdMessage = await request.prisma.message.create({
     data: {
@@ -15,6 +36,13 @@ export const createMessage = async (
       creatorId: currentUserId,
     },
   });
+
+  if (recipientId) {
+    console.log(createdMessage, recipientId);
+    request.io
+      .to(recipientId.toString())
+      .emit('SERVER:CREATE_MESSAGE', JSON.stringify(createdMessage));
+  }
 
   return reply.status(201).send(createdMessage);
 };
@@ -46,29 +74,78 @@ export const getMessage = async (
 };
 
 export const editMessage = async (
-  request: FastifyRequest<{ Params: { id: number }; Body: EditMessageBody }>,
+  request: FastifyRequest<{
+    Params: { id: number };
+    Body: EditMessageBody;
+    Querystring: MessageQueryString;
+  }>,
   reply: FastifyReply,
 ) => {
   const id = request.params.id;
   const text = request.body.text;
+  const dialogId = request.query.dialogId;
+  const currentUserId = request.user.id;
+
+  const currentDialog = await request.prisma.dialog.findUnique({
+    where: { id: dialogId },
+    select: { participants: true },
+  });
+
+  let recipientId: number | undefined;
+
+  if (currentDialog?.participants) {
+    recipientId = currentDialog.participants.find(
+      (participant) => participant.userId !== currentUserId,
+    )?.userId;
+  }
 
   const editedMessage = await request.prisma.message.update({
     where: { id },
     data: { text },
   });
 
+  if (recipientId) {
+    request.io
+      .to(recipientId.toString())
+      .emit('SERVER:EDIT_MESSAGE', JSON.stringify(editedMessage));
+  }
+
   return reply.status(200).send(editedMessage);
 };
 
 export const deleteMessage = async (
-  request: FastifyRequest<{ Params: { id: number } }>,
+  request: FastifyRequest<{
+    Params: { id: number };
+    Querystring: MessageQueryString;
+  }>,
   reply: FastifyReply,
 ) => {
   const id = request.params.id;
+  const dialogId = request.query.dialogId;
+  const currentUserId = request.user.id;
 
-  await request.prisma.message.delete({
+  const currentDialog = await request.prisma.dialog.findUnique({
+    where: { id: dialogId },
+    select: { participants: true },
+  });
+
+  let recipientId: number | undefined;
+
+  if (currentDialog?.participants) {
+    recipientId = currentDialog.participants.find(
+      (participant) => participant.userId !== currentUserId,
+    )?.userId;
+  }
+
+  const deletedMessage = await request.prisma.message.delete({
     where: { id },
   });
+
+  if (recipientId) {
+    request.io
+      .to(recipientId.toString())
+      .emit('SERVER:DELETE_MESSAGE', deletedMessage.id.toString());
+  }
 
   return reply
     .status(200)

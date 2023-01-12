@@ -5,8 +5,12 @@ export const gateway = async (server: FastifyInstance) => {
     if (error) throw error;
 
     server.io.on('connection', (socket) => {
-      socket.on('CLIENT:DIALOGS', (userId: string) => {
+      socket.on('CLIENT:JOIN_MESSENGER', (userId: string) => {
         socket.join(userId);
+      });
+
+      socket.on('CLIENT:JOIN_DIALOG', (dialogId: string) => {
+        socket.join(dialogId);
       });
     });
   });

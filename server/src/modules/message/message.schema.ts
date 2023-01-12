@@ -4,11 +4,16 @@ export const createMessageSchema = {
   body: {
     type: 'object',
     properties: {
-      dialogId: { type: 'number', examples: [1564] },
       text: { type: 'string', examples: ['My second message!'] },
     },
-    required: ['dialogId', 'text'],
+    required: ['text'],
     additionalProperties: false,
+  },
+  querystring: {
+    type: 'object',
+    properties: {
+      dialogId: { type: 'number' },
+    },
   },
   response: {
     201: {
@@ -69,6 +74,12 @@ export const editMessageSchema = {
     type: 'object',
     properties: { id: { type: 'number' } },
   },
+  querystring: {
+    type: 'object',
+    properties: {
+      dialogId: { type: 'number' },
+    },
+  },
   body: {
     type: 'object',
     properties: {
@@ -95,6 +106,12 @@ export const deleteMessageSchema = {
     type: 'object',
     properties: { id: { type: 'number' } },
   },
+  querystring: {
+    type: 'object',
+    properties: {
+      dialogId: { type: 'number' },
+    },
+  },
   response: {
     200: {
       type: 'object',
@@ -106,5 +123,6 @@ export const deleteMessageSchema = {
   },
 };
 
+export type MessageQueryString = { dialogId: number };
 export type CreateMessageBody = FromSchema<typeof createMessageSchema['body']>;
 export type EditMessageBody = FromSchema<typeof editMessageSchema['body']>;
